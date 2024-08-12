@@ -1,71 +1,47 @@
+const { query } = require("express");
+
 const router = require("express").Router();
 
-// Route level ma application middleware create garye ko ho.
-const verify = (req, res, next) => {
-  const role = req.header.role; // yes le header ma role check garni kam gar xa.(application middileware level le route level ma check garni kam garxa.)
-  if (role === admin) {
-    next();
-  } else throw new Error("You are aunthorized"); // custome new erro bhanye ko throw new err ho.
-};
-
 //Read all data
-router.get("/", verify, (req, res, next) => {
+router.get("/", (req, res) => {
   //query
-  try {
-    res.json({ data: "Hello from users" });
-  } catch (e) {
-    next(e);
-  }
+  console.log(req?.query);
+  res.json({ data: "Hello from users id" });
 });
 
 //Read one data
-router.get("/:id", (req, res, next) => {
+router.get("/:id", (req, res) => {
   //params
-  try {
-    res.json({ data: `get data from user id ${req?.params?.id}` });
-  } catch (e) {
-    next(e);
-  }
+  res.json({ data: `get data from user id ${req?.params?.id}` });
 });
 
 //Create
-router.post("/", (req, res, next) => {
-  //body
-  console.log("req.body");
-  try {
-    res.json({ data: "Hello from users" });
-  } catch (e) {
-    next(e);
-  }
+router.post("/", (req, res) => {
+  // body
+  console.log(req?.query);
+  res.json({ data: "Hello from post user" });
 });
 
 //Update
-router.put("/:id", (req, res, next) => {
+router.put("/:id", (req, res) => {
   //params + body
-  try {
-    res.json({ data: "Hello from users" });
-  } catch (e) {
-    next(e);
-  }
+  console.log(req?.body);
+  res.json({ data: `put data from user id ${req?.params?.id}` });
 });
 
 //Update
-router.patch("/:id", (req, res, next) => {
+router.patch("/:id", (req, res) => {
   //params + body
-  try {
-    res.json({ data: "Hello from users" });
-  } catch (e) {
-    next(e);
-  }
+  console.log(req?.body);
+  res.json({
+    data: `patch data from user id ${req?.params?.id} `,
+  });
 });
 
 //Delete
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", (req, res) => {
   //params
-  try {
-    res.json({ data: "Hello from users" });
-  } catch (e) {
-    next(e);
-  }
+  res.json({ data: `delete data from user id ${req?.params?.id}` });
 });
+
 module.exports = router;
