@@ -18,7 +18,7 @@ router.get("/:id", (req, res) => {
 //Create
 router.post("/", (req, res) => {
   // body
-  console.log(req?.query);
+  console.log(req?.body);
   res.json({ data: "Hello from post user" });
 });
 
